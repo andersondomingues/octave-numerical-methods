@@ -16,16 +16,15 @@
 ## License along with Octave; see the file COPYING.  If not,
 ## see <http://www.gnu.org/licenses/>.
 
-## usage: X = jacobi (A, B, it, ex, init)
+## usage: X = jacobi(A, B, RTOL, MAXIT, X0)
 ##
 ## Solve a linear system using Jacobi method. Parameter <A> is 
-## coeficient matrix, <B> is the result vector, <it> is the 
-## maximum number of iterations (used as stop criteria), <ex> 
-## is the number of exact digits (stop criteria), and <init>
-## is the partial solution vector (used as partial results for
-## the first iteration). One may ommit the <init> param, which
-## the default is zeroes(column(a), rows(a)) -- see columns, 
-## rows, and zeroes functions.
+## coeficient matrix, <B> is the result vector, <MAXIT> is the 
+## maximum number of iterations (used as stop criteria), <RTOL> 
+## is the realtive tolerance (stop criteria), and <X0> is the 
+## partial solution vector (used as initial guess). One may ommit
+## <MAXIT>, <RTOL>, and <X0> param, which defaults to 20, 1e-6
+## and ones(column(a), rows(a)), respectively.
 ##
 ## Example:
 ##
@@ -49,49 +48,45 @@
 ##  -0.97785
 ##   1.27101 
 ## ]
+##
+## References:
+## 1. R. Freund and N. Nachtigal, ‘QMR: a quasi-minimal residual
+##    method for non-Hermitian linear systems’, Numerische
+##    Mathematik, 1991, 60, pp.  315-339.
+##
+## 2. R. Barrett, M. Berry, T. Chan, J. Demmel, J. Donato, J.
+##    Dongarra, V. Eijkhour, R. Pozo, C. Romine, and H. van der
+##    Vorst, ‘Templates for the solution of linear systems: Building
+##    blocks for iterative methods’, SIAM, 2nd ed., 1994.
 
 ## Author: Anderson R. P. Domingues
 ## Keywords: linear systems jacobi 
 ## Maintainer: Anderson R. P. Domingues
 ## Email: anderson.domingues@acad.pucrs.br
+__JACOBI_METHOD_TEST = 0;
 
-function retval = row_swap(A, r1, r2)
-
-
-
-endfunction
-
-
-function retval = jacobi(a, b, it, init = ones(columns(a), rows(a)))
-
-	%percorre as colunas de A
-	for i = 1 : columns(a);
-		
- 
-    a(1, i)	
-	endfor
-
+A, B, M, RTOL, MAXIT, M1, M2, X0
+function retval = jacobi(A, B, MAXIT = 20, RTOL = 1e-6, X0 = ones(columns(a), rows(a)))
 	retval = a\b;
 endfunction
 
-%entrada da matriz de coeficientes
-A = [
-   10   -1    2    0
-   -1   11   -1    3
-    2   -1   10   -1
-    0    2   -1    8]
 
-%entrada do vetor solucao    
-B = [ 
-    6
-   25
-  -11
-   15]
+if(__JACOBI_METHOD_TEST == 1)
+  %entrada da matriz de coeficientes
+  A = [
+     10   -1    2    0
+     -1   11   -1    3
+      2   -1   10   -1
+      0    2   -1    8]
+
+  %entrada do vetor solucao    
+  B = [ 
+      6
+     25
+    -11
+     15]
    
-%resolucao usando o solver do octave
-X = A\B
+  %funcao para o metodo de Jacobi
+  X = jacobi(A, B);
 
-%funcao para o metodo de Jacobi
-
-
-X = jacobi(A, B);
+endif
