@@ -66,7 +66,7 @@
 __JACOBI_METHOD_TEST = 0;
 
 A, B, M, RTOL, MAXIT, M1, M2, X0
-function retval = jacobi(A, B, MAXIT = 20, RTOL = 1e-6, X0 = ones(columns(a), rows(a)))
+function retval = jacobi(A, B, MAXIT = 20, RTOL = 1e-6, X0 = ones(columns(a)))
 	retval = a\b;
 endfunction
 
