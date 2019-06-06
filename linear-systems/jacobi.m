@@ -65,12 +65,30 @@
 ## Email: anderson.domingues@acad.pucrs.br
 __JACOBI_METHOD_TEST = 0;
 
-A, B, M, RTOL, MAXIT, M1, M2, X0
+# NOTA: substituam as informações do cabeçalho com 
+# os dados de vocês. Se vocês NÃO desejam que eu 
+# use o código de vocês para futuras implementações,
+# removam o cabeçalho (Tudo acima da linha 61). 
+
+# esta é a assinatura do método, não alterar
 function retval = jacobi(A, B, MAXIT = 20, RTOL = 1e-6, X0 = ones(columns(a)))
+
+	#Implementar seu método a partir desta linha.
+	#Idealmente, não declarem variáveis fora do corpo do método senão para fins de teste.
+
+	#Utilizem o comando abaixo para testar a solução de vocês. Se 
+	#vocês implementaram corretamente, o resultado do método deve 
+	#ser "parecido" com a saída do Octave para o comando abaixo. 
 	retval = a\b;
 endfunction
 
-
+# Fiz essa função para que vocês usem de exemplo
+# para criar os testes de vocês. Já possui um sistema
+# de "brinde", que podem usar para testar os métodos.
+# NOTA: antes de tudo, confiram se a norma e estabilidade
+# do sistemas estão ok, pois o funcionamento dos métodos de 
+# vocês depende disso. Confiram também para o sistema abaixo,
+# pois não garanto que ele possua essas propriedades.
 if(__JACOBI_METHOD_TEST == 1)
   %entrada da matriz de coeficientes
   A = [
@@ -88,5 +106,8 @@ if(__JACOBI_METHOD_TEST == 1)
    
   %funcao para o metodo de Jacobi
   X = jacobi(A, B);
+  
+  #teste para o método de Gauss Seidel
+  X = seidel(A, B)
 
 endif
